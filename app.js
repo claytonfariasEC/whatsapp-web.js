@@ -1,11 +1,28 @@
 const qrcode = require('qrcode-terminal');
 
 const { Client } = require('whatsapp-web.js');
-const client = new Client();
+//const client = new Client();
+const client = new Client({session: {
+    WABrowserId: '"rfdDzovIszDF1ScCmok77g=="',
+    WASecretBundle: '{"key":"epUy/fPalBXgmC1ajWhBPmKwKU8S/IrgnX7S7AAZG4c=","encKey":"GBWb271R/SzTCMSs95cuj1VklhcHXtVngUqsLHvvtyY=","macKey":"epUy/fPalBXgmC1ajWhBPmKwKU8S/IrgnX7S7AAZG4c="}',
+    WAToken1: '"tb6GYZ+JqHhTuxx1bzvSv+HfBk/KdrSVDaXcr6W7PpY="',
+    WAToken2: '"1@yBI3mdhqrOdkFFVuUTGlE+Y1A4b6gYYmeqSwlJF/U5JiOHLJb+YUM1WUmyh0dvaeRR0e9Su5ONumKQ=="'
+}});
+
+
+console.log(client.pupBrowser);
+console.log(client.info);
+
 
 client.on('qr', qr => {
     qrcode.generate(qr, {small: true});
 });
+
+client.on('authenticated', (session) => {
+    // session param contains object structured as above7
+    console.log("logged in my friendo")
+});
+
 
 client.on('ready', () => {
     console.log('Client is ready!');
@@ -45,6 +62,8 @@ client.on('ready', () => {
     }
 
 });
+
+
 
 client.initialize();
 
